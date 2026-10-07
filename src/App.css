@@ -1,22 +1,43 @@
+:root {
+  --fundo: #eef1f6;
+  --card: #ffffff;
+  --texto: #1f2937;
+  --texto-suave: #6b7280;
+  --texto-apagado: #9ca3af;
+  --borda: #e5e7eb;
+  --borda-campo: #cbd5e1;
+  --destaque: #3730a3;
+  --destaque-hover: #312e81;
+  --perigo: #b91c1c;
+  --perigo-fundo: #fef2f2;
+  --raio: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  background: #eef1f6;
-  font-family: system-ui, sans-serif;
-  color: #1f2937;
+  background: var(--fundo);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--texto);
+  line-height: 1.5;
 }
 
 .painel {
   max-width: 480px;
   margin: 3rem auto;
-  padding: 1.5rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.75rem;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(31, 41, 55, 0.08);
 }
 
 h1 {
-  margin-top: 0;
-  font-size: 1.5rem;
+  margin: 0 0 1.25rem;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
 }
 
 .formulario {
@@ -26,67 +47,142 @@ h1 {
 
 .formulario input {
   flex: 1;
-  padding: 0.6rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 1rem;
+  min-width: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--borda-campo);
+  border-radius: var(--raio);
+  font: inherit;
 }
 
 .formulario button {
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1.1rem;
   border: none;
-  border-radius: 8px;
-  background: #2563eb;
+  border-radius: var(--raio);
+  background: var(--destaque);
   color: #fff;
-  font-size: 1rem;
+  font: inherit;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.formulario button:hover {
+  background: var(--destaque-hover);
+}
+
+.formulario button:active {
+  transform: scale(0.97);
+}
+
+.formulario input:focus-visible,
+.formulario button:focus-visible,
+.item input[type="checkbox"]:focus-visible,
+.remover:focus-visible {
+  outline: 3px solid rgba(55, 48, 163, 0.35);
+  outline-offset: 2px;
 }
 
 .erro {
-  margin: 0.5rem 0 0;
-  color: #b91c1c;
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0.75rem;
+  background: var(--perigo-fundo);
+  border-left: 4px solid var(--perigo);
+  border-radius: 6px;
+  color: var(--perigo);
   font-size: 0.9rem;
 }
 
 .lista {
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
+}
+
+.lista:empty::before {
+  content: "Nenhuma ideia por aqui ainda. Que tal escrever a primeira?";
+  display: block;
+  padding: 1.5rem 0;
+  color: var(--texto-apagado);
+  text-align: center;
 }
 
 .item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid #e5e7eb;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+.item:last-child {
+  border-bottom: none;
 }
 
 .item label {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.7rem;
+  flex: 1;
+  min-width: 0;
   cursor: pointer;
+}
+
+.item input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  accent-color: var(--destaque);
+  cursor: pointer;
+}
+
+.texto {
+  overflow-wrap: anywhere; 
+  transition: color 0.15s;
 }
 
 .texto.feita {
   text-decoration: line-through;
-  color: #9ca3af;
+  color: var(--texto-apagado);
 }
 
 .remover {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
   border: none;
+  border-radius: 50%;
   background: none;
-  color: #9ca3af;
+  color: var(--texto-apagado);
   font-size: 1rem;
   cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
 
 .remover:hover {
-  color: #b91c1c;
+  background: var(--perigo-fundo);
+  color: var(--perigo);
 }
 
 .rodape {
-  color: #6b7280;
+  padding-top: 1rem;
+  border-top: 1px solid var(--borda);
+  color: var(--texto-suave);
   font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 520px) {
+  .painel {
+    margin: 0;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }
